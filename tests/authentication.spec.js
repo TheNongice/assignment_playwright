@@ -32,7 +32,10 @@ test.describe('Login Test', () => {
       await page.getByRole('textbox', { name: 'รหัส PIN 4 หลัก' }).fill(data_test[i].password);
       await page.getByRole('button', { name: 'เข้าสู่ระบบ' }).click();
       await expect(page.locator('#root')).toContainText('บัญชีเลขที่: ' + data_test[i].username);
+      
       await expect(page.locator('p').filter({ hasText: 'ยินดีต้อนรับ' })).toBeVisible();
+      await expect(page.getByText('เข้าสู่ระบบกรุณากรอกหมายเลขบัญชีและรหัส PIN')).toBeHidden();
+      await expect(page.getByRole('button', { name: 'ออกจากระบบ' })).toBeVisible();
     });
 
     test(`shouldn't login ${i}`, async ({ page }) => {
@@ -64,5 +67,7 @@ test.describe('Logout Test', () => {
     await page.getByRole('button', { name: 'ออกจากระบบ' }).click();
     await expect(page.getByText('ATM BANKINGระบบ ATM อัตโนมัติ')).toBeVisible();
     await expect(page.getByText('ข้อมูลทดลอง:บัญชี: ')).toBeVisible();
+    await expect(page.getByRole('button', { name: 'ออกจากระบบ' })).toBeHidden();
+    await expect(page.getByText('เข้าสู่ระบบกรุณากรอกหมายเลขบัญชีและรหัส PIN')).toBeVisible();
   });
 });
