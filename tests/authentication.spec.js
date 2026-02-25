@@ -44,7 +44,7 @@ test.describe('Login Test', () => {
       await page.getByRole('textbox', { name: 'รหัส PIN 4 หลัก' }).fill('6767');
       await page.getByRole('button', { name: 'เข้าสู่ระบบ' }).click();
       await page.waitForTimeout(500);
-      await expect(page.getByRole('status').getByText('ข้อมูลไม่ถูกต้อง')).toBeVisible();
+      await expect(page.getByRole('status').getByText('ข้อมูลไม่ถูกต้อง').last()).toBeVisible();
     });  
   }
 });
